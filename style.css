@@ -67,3 +67,46 @@ img {
     padding : 1rem;
     border-radius : 1rem;
 }
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .choices {
+        gap: 1rem;
+        margin-top: 3rem;
+    }
+
+    .choice {
+        width: 100px;
+        height: 100px;
+    }
+
+    img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .score-board {
+        gap: 3rem;
+        font-size: 1.5rem;
+    }
+
+    #user-score,
+    #computer-score {
+        font-size: 3rem;
+    }
+
+    #msg {
+        font-size: 1.3rem;
+        padding: 0.8rem;
+        display: inline-block;
+        max-width: 80%;
+    }
+
+    .msg-container {
+        margin-top: 3rem;
+    }
+}
