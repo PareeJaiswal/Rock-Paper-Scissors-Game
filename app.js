@@ -5,6 +5,8 @@ const choices = document.querySelectorAll(".choice");
 
 const msg = document.querySelector("#msg");
 
+const resultImg = document.querySelector("#result-img");
+
 const userScorePara = document.querySelector("#user-score");
 const computerScorePara = document.querySelector("#computer-score");
 
@@ -29,6 +31,7 @@ const drawGame = () => {
     console.log("It was a draw");
     msg.innerText = "It was a draw😎. Play again.";
     msg.style.backgroundColor = "#081b31";
+    resultImg.src = "images/draw-game.gif"
 }
 
 //show who won the game
@@ -39,12 +42,14 @@ const showWinner = (userWin, userChoice, computerChoice) => {
         console.log("Hurrah🎉 You won the game!");
         msg.innerText = `Hurrah🎉 You won the game! Your ${capitalize(userChoice)} beats ${capitalize(computerChoice)}`;
         msg.style.backgroundColor = "green"; 
+        resultImg.src = "images/won-game.gif";
     } else {
         computerScore++;
         computerScorePara.innerText = computerScore; 
         console.log("Oops ☹️ You lost the game");
         msg.innerText = `Oops ☹️ You lost the game. ${capitalize(computerChoice)} beats your ${capitalize(userChoice)}`;
         msg.style.backgroundColor = "crimson";
+        resultImg.src = "images/lost-game.gif";
     }
 
 }
