@@ -15,6 +15,23 @@ const capitalize = (word) => {
     return word[0].toUpperCase() + word.slice(1);
 };
 
+const drawSound = new Audio("audio/draw-game.mp3");
+const resultSound = new Audio("audio/game-result.mp3");
+const loseSound = new Audio("audio/lost-game.mp3");
+const winSound = new Audio("audio/won-game.mp3");
+
+const stopAllSounds = () => {
+    drawSound.pause();
+    resultSound.pause();
+    loseSound.pause();
+    winSound.pause();
+
+    drawSound.currentTime = 0;
+    resultSound.currentTime = 0;
+    loseSound.currentTime = 0;
+    winSound.currentTime = 0;
+};
+
 //generate computer choice
 const genCompChoice = () => {
     //rock, paper, scissors --> we store them in an array because there is no way in javascript to take out random string from collection of strings
@@ -28,6 +45,7 @@ const genCompChoice = () => {
 
 // draw game function 
 const drawGame = () => {
+    drawSound.play();
     console.log("It was a draw");
     msg.innerText = "It was a draw😎. Play again.";
     msg.style.backgroundColor = "#081b31";
@@ -40,12 +58,14 @@ const showWinner = (userWin, userChoice, computerChoice) => {
         userScore++;
         userScorePara.innerText = userScore;
         console.log("Hurrah🎉 You won the game!");
+        winSound.play();
         msg.innerText = `Hurrah🎉 You won the game! Your ${capitalize(userChoice)} beats ${capitalize(computerChoice)}`;
         msg.style.backgroundColor = "green"; 
         resultImg.src = "images/won-game.gif";
     } else {
         computerScore++;
         computerScorePara.innerText = computerScore; 
+        loseSound.play();
         console.log("Oops ☹️ You lost the game");
         msg.innerText = `Oops ☹️ You lost the game. ${capitalize(computerChoice)} beats your ${capitalize(userChoice)}`;
         msg.style.backgroundColor = "crimson";
@@ -85,8 +105,21 @@ const playGame = (userChoice) => {
 choices.forEach((choice) => {
     console.log(choice);
     choice.addEventListener("click", () => {
+        stopAllSounds();
         const userChoice = choice.getAttribute("id");
         playGame(userChoice);
         
     });
 }); 
+
+window.addEventListener("load", () => {
+
+    resultSound.play().catch(() => {
+
+        alert("🔊 Sound autoplay was blocked by your browser. Click anywhere on the page to enable the game sound!");
+        document.addEventListener("click", () => {
+        resultSound.play();
+        }, { once: true });
+    });
+});
+
